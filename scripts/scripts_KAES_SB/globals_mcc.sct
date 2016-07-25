@@ -1,0 +1,46 @@
+<<&DB Default = ''>>
+
+<<&Create VAR>>
+<<&B>><<
+  &Insert "select distinct PM as Pos from DIN
+    where (KANAL = 1) and (USO not like 'DVV%') order by PM">>
+  <<&B>> 
+        bool _<<Pos>>VH1=false;
+        bool _<<Pos>>VH2=false;
+  <<&E>>
+<<&E>>
+
+<<&Create Init_VH1>>
+<<&B>><<
+  &Insert "select distinct DIID as DID,PM as Pos from DIN
+    where (KANAL = 1) and (USO not like 'DVV%')
+    and (NRG = 5) order by PM">>
+<<&B>><<
+  &Insert "select Name as N from DI where DIID = <<DID>>">>  
+  <<&B>> 
+        _<<Pos>>VH1=_<<N>>;
+  <<&E>><<&E>>
+<<&E>>
+
+<<&Create Init_VH2>>
+<<&B>><<
+  &Insert "select distinct DIID as DID,PM as Pos from DIN
+    where (KANAL = 1) and (USO not like 'DVV%') 
+    and (NRG = 6) order by PM">>
+<<&B>><<
+  &Insert "select Name as N from DI where DIID = <<DID>>">>  
+  <<&B>> 
+        _<<Pos>>VH2=_<<N>>;
+  <<&E>><<&E>>
+<<&E>>
+
+#include "globals_m.h"
+#include "globals.h"
+
+   <<&insert VAR>>
+
+void Init_VH()
+{
+   <<&Insert Init_VH1>>
+   <<&Insert Init_VH2>>
+};

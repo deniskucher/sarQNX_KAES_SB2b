@@ -1,0 +1,10 @@
+<<&DB Default = ''>>
+<<&Create str>>
+ 			TABL<PSRT> 
+<<&B>><<&Insert  "SELECT B.AOID as ID, B.NAME as N,B.CRATE as C,B.PM as P from AON B ORDER BY B.NUMBER">>
+<<&B>><<&Insert  "SELECT NUMBER as AONN, OPTIONS as R from AO A WHERE A.AOID = <<ID>>">>
+<<&B>>USO <PSRT_125_40> KR< <<C>> >PM< <<P>> >TYPE_FROM <INA> ID_FROM< <<R>> >TYPE_TO <AO> ID_TO< <<AONN>> ><<&E>><<&E>>
+<<&E>>
+<<&E>>
+<<&E>>
+<<&Insert str>>

@@ -1,0 +1,37 @@
+<<&DB Default = ''>>
+<<&Create InitF1>>
+<<&B>><<
+  &Insert "select Name from AI">>
+  <<&B>>extern bool _<<Name>>F_1; // to reserve MK
+  <<&E>>
+<<&E>>
+
+<<&Create Ai1KOL>>
+<<&B>><<
+  &Insert "select Count(*) from AI">>
+  <<&B>>const short KOL_AI1=<<Count>>;<<&E>><<&E>>
+
+<<&Create Ai2KOL>>
+<<&B>><<
+  &Insert "select Count(*) from AI where LGR=2">>
+  <<&B>>const short KOL_AI2=(<<Count>>/2);<<&E>><<&E>>
+
+<<&Create Ai3KOL>>
+<<&B>><<
+  &Insert "select Count(*) from AI where LGR=3">>
+  <<&B>>const short KOL_AI3=(<<Count>>/3);<<&E>><<&E>>
+
+#ifndef KDH
+#define KDH
+#include "KD_Classes.h"
+
+<<&Insert  InitF1>>
+
+<<&Insert Ai1KOL>>
+<<&Insert Ai2KOL>>
+<<&Insert Ai3KOL>>
+
+  extern void KD_RUN(); 
+  extern void Init_KD();
+
+#endif

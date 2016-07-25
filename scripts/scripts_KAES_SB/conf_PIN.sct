@@ -1,0 +1,9 @@
+<<&DB Default = ''>>
+<<&Create str>>
+                           TYPE_TABL<PIN>
+<<&B>>
+   <<&Insert  "SELECT NAME as N,NUMBER as NN from PIN ORDER BY NUMBER">>
+<<&B>>ID< <<NN>> >IDENT< <<N>> >
+<<&E>>
+<<&E>>
+<<&Insert str>>

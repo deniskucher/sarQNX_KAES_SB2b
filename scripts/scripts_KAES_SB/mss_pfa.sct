@@ -1,0 +1,41 @@
+<<&P ProjPath>>
+
+<<&Create MSS_PFAfrom>>
+<<&B>>
+  <<&Insert "select Name as ShuName,ShuNo as NumShu from SHU">>
+  <<&DB Proj = '<<ProjPath>>\Project.gdb'>>
+<<&B>>
+  <<&Insert Proj:"select FromCab,ToCab,FromSigID as FSI,FromType from Inter where 
+  (FromCab='<<ShuName>>') and (FromType='PFA') order by FromNo">>
+  <<&DB SHU = '<<ProjPath>>\DB_<<ToCab>>.gdb'>>
+<<&B>>
+  <<&Insert SHU:"select ShuNo as SN from SHU">>
+<<&B>>
+  <<&Insert "select PFAID,Name as ID1,Number as ID2 from PFA where PFAID=<<FSI>>">> 
+  <<&B>>
+  ID < <<ID2>> > IDENT < <<ID1>> > FROM < <<NumShu>> > TO < <<SN>> >  
+  <<&E>><<&E>><<&E>><<&E>>
+<<&E>>
+
+<<&Create MSS_PFAto>>
+<<&B>>
+  <<&Insert "select Name as ShuName,ShuNo as NumShu from SHU">>
+  <<&DB Proj = '<<ProjPath>>\Project.gdb'>>
+<<&B>>
+  <<&Insert Proj:"select FromCab,ToCab,ToSigID as TSI,ToType from Inter where 
+  (ToCab='<<ShuName>>') and (ToType='PFA') order by ToNo">>
+  <<&DB SHU = '<<ProjPath>>\DB_<<FromCab>>.gdb'>>
+<<&B>>
+  <<&Insert SHU:"select ShuNo as SN from SHU">>
+<<&B>>
+  <<&Insert "select PFAID,Name as ID1,Number as ID2 from PFA where PFAID=<<TSI>>">> 
+  <<&B>>
+  ID < <<ID2>> > IDENT < <<ID1>> > FROM < <<SN>> > TO < <<NumShu>> >  
+  <<&E>><<&E>><<&E>><<&E>>
+<<&E>>
+
+                          TYPE_TABL<PFA> 
+                   ////////// FROM ////////////
+<<&Insert MSS_PFAfrom>>
+                   //////////  TO  /////////////
+<<&Insert MSS_PFAto>>

@@ -1,0 +1,13 @@
+<<&DB Default = ''>>
+<<&Create sst>>
+                             TYPE_TABL<AI>
+<<&B>>
+   <<&Insert  "SELECT NAME as N,NUMBER as NN,VALMIN as mn,VALMAX as mx,
+      UNITS as U,ETYPE as T,CHANLCOUNT as cout,NAG as ng,VAG as vg,
+      FORMAT as fr,POPRAV as pr,RATE as op from AI order by NUMBER">>
+<<&B>>ID< <<NN>> >IDENT< <<N>> >VALMIN< <<mn>> >VALMAX< <<mx>> >UNITS< <<U>> >ETYPE< <<T>> >KANAL< <<cout>> >NAG< <<ng>> >VAG< <<vg>> >POPRAVKA< <<pr>> >FORMAT< <<fr>> >VKB< <<op>> >
+<<&E>>
+<<&E>>
+
+<<&Insert sst>>
+

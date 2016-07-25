@@ -1,0 +1,10 @@
+<<&DB Default = ''>>
+<<&Create str>>
+<<&B>><<&Insert  "SELECT B.DIID as ID, B.DINID as S, B.NUMBER as NN, B.NAME as N,B.CRATE as C,B.PM as P,B.NRG as R,
+        B.KANAL as K,B.USO as U,RATE as op from DIN B ORDER BY B.NUMBER">>
+<<&B>><<&Insert  "SELECT NUMBER as DINN from DI A WHERE A.DIID = <<ID>>">>
+<<&B>>ID< <<NN>> >ID_DI< <<DINN>> >IDENT< <<N>> >KR< <<C>> >PM< <<P>> >REG< <<R>> >KAN< <<K>> >USO< <<U>> >VKB< <<op>> >
+<<&E>><<&E>>
+<<&E>>
+                               TYPE_TABL<DIN>
+<<&Insert str>>

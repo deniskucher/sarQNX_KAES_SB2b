@@ -1,0 +1,28 @@
+<<&DB Default = ''>>
+<<&Create DefP(Zone, Type)>>
+<<&B>><<
+  &Insert "select Name from <<Zone>> order by Number">>
+  <<&B>>extern <<Type>> *p<<Name>>;
+  <<&E>>
+<<&E>>
+
+#ifndef SigChangeH
+#define SigChangeH
+
+<<&Insert DefP('AI', 'int')>>
+<<&Insert DefP('AO', 'int')>>
+<<&Insert DefP('PFA', 'int')>>
+<<&Insert DefP('KO', 'int')>>
+<<&Insert DefP('MRI', 'int')>>
+<<&Insert DefP('MRO', 'int')>>
+<<&Insert DefP('DI', 'char')>>
+<<&Insert DefP('DO_', 'char')>>
+<<&Insert DefP('PFD', 'char')>>
+<<&Insert DefP('KL', 'char')>>
+<<&Insert DefP('PIN', 'char')>>
+
+extern void Read_Sig();
+extern void Write_Sig();
+extern void Init_P();
+
+#endif

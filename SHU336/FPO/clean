@@ -1,0 +1,7 @@
+rm -f *.o *.map 
+rm FPO_main
+echo Clean all *.o and *.map files
+#make 
+make 2>err 
+
+

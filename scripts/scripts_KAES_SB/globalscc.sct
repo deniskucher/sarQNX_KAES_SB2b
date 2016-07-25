@@ -1,0 +1,35 @@
+<<&DB Default = ''>>
+
+<<&Create DefGlobal_Var(Expr, Expr1)>>
+<<&B>><<
+  &Insert "SELECT ObjectName,VarValue FROM Object WHERE (TypeID=<<Expr>>) AND
+    (OWNERID IS NULL) AND (METID IS NULL) AND (ObjectName !='') AND
+    ((VarValue !='') AND (VarValue is not NULL))">>
+    <<&B>> <<Expr1>> _<<ObjectName>>=<<VarValue>>;
+    <<&E>>
+<<&E>>
+
+<<&Create DefGlobal(Expr, Expr1, Expr2)>>
+<<&B>><<
+  &Insert "SELECT ObjectName,VarValue FROM Object WHERE (TypeID=<<Expr>>) AND
+    (OWNERID IS NULL) AND (METID IS NULL) AND (ObjectName !='')AND
+    ((VarValue ='') OR (VarValue is NULL))">>
+    <<&B>> <<Expr1>> _<<ObjectName>>=<<Expr2>>;
+    <<&E>>
+<<&E>>
+
+#include "globals.h"
+
+<<&Insert DefGlobal('13', 'bool', 'false')>>
+<<&Insert DefGlobal('9', 'short', '0')>>
+<<&Insert DefGlobal('8', 'float', '0.0')>>
+<<&Insert DefGlobal('10', 'int', '0')>>
+<<&Insert DefGlobal('11', 'unsigned short', '0')>>
+<<&Insert DefGlobal('12', 'char', '0')>>
+<<&Insert DefGlobal_Var('8', 'float')>>
+<<&Insert DefGlobal_Var('9', 'short')>>
+<<&Insert DefGlobal_Var('10', 'int')>>
+<<&Insert DefGlobal_Var('11', 'unsigned short')>>
+<<&Insert DefGlobal_Var('12', 'char')>>
+<<&Insert DefGlobal_Var('13', 'bool')>>
+

@@ -1,0 +1,219 @@
+<<&DB Default = ''>>
+
+<<&Create Pulse__var(type)>>             <<&B>><<
+  &Insert "select Name from PFD where (Name like '%<<type>>')">>
+  <<&B>>_TSPulse1 *Pl_<<Name>>;
+  <<&E>><<&E>>
+
+<<&Create Pulse__new(type)>>             <<&B>><<
+  &Insert "select Name from PFD where Name like '%<<type>>'">>
+  <<&B>>Pl_<<Name>> = new _TSPulse1(0,false);
+  <<&E>><<&E>>
+
+<<&Create OR_pulse_(type)>>                 <<&B>><<
+  &Insert "select Name from PFD where (Name like '%<<type>>')">>
+  <<&B>> || Pl_<<Name>>->_SPulse(_<<Name>>,time1)
+  <<&E>><<&E>>
+  
+<<&Create OR_(type)>>                 <<&B>><<
+  &Insert "select Name from PFD where (Name like '%<<type>>')">>
+  <<&B>>  ||  _<<Name>>
+  <<&E>><<&E>>
+
+<<&Create SSR>>                    <<&B>><<
+  &Insert "select Name from DO_ where Name like '%SSR'">>
+  <<&B>>_<<Name>> = Zero
+  <<&E>><<&E>>
+<<&Create SSR2>>                    <<&B>><<
+  &Insert "select Name from DO_ where Name like '%SSR2'">>
+  <<&B>>_<<Name>> = !(Zero
+  <<&E>><<&E>>
+<<&Create SBA>>                    <<&B>><<
+  &Insert "select Name from DO_ where Name like '%SBA'">>
+  <<&B>>_<<Name>> = Zero
+  <<&E>><<&E>>
+<<&Create SSA>>                    <<&B>><<
+  &Insert "select Name from DO_ where Name like '%SSA'">>
+  <<&B>>_<<Name>> = Zero
+  <<&E>><<&E>>
+  
+<<&Create SHUXN(end)>>                   <<&B>><<
+  &Insert "select Name from pfd where (Name like 'SHU_APN<<end>>') OR (Name like 'SHU__APN<<end>>')">>
+  <<&B>> _<<Name>>  
+  <<&E>><<&E>>
+
+
+<<&Create Naladka>>              <<&B>><<
+  &Insert "select Name from PFD where Name like 'NALADKA'">>
+  <<&B>>_<<Name>> = (bool)Nalad;
+  <<&E>><<&E>>
+<<&Create Tact100>>              <<&B>><<
+  &Insert "select Name from PFA where Name like 'TACT100MS'">>
+  <<&B>>_<<Name>>++;
+        if (_<<Name>> > 1000) _<<Name>>=0;
+  <<&E>><<&E>>
+  
+  
+<<&Create def_KRS_F>>                 <<&B>><<
+  &Insert "select P.Name as F from PFD P where (P.Name like '%F')">>
+  <<&B>> bool bic_<<F>>; 
+  <<&E>><<&E>>
+  
+<<&Create BIC_KRS_F>>                 <<&B>><<
+  &Insert "select P.Name as F,K.Name as KRS
+  from PFD P, KL K, AI A where (P.Name like '%F') and (K.Name like '%KRS')
+  and (P.AiID = K.AiID) and (A.AiID=P.AiID)">>
+  <<&B>> bic_<<F>> = _<<F>>  && !_<<KRS>>;
+  <<&E>><<&E>>
+
+<<&Create or_SP_bic_KRS_F>>                 <<&B>><<
+  &Insert "select P.Name as F,K.Name as KRS
+  from PFD P, KL K, AI A where (P.Name like '%F') and (K.Name like '%KRS')
+  and (P.AiID = K.AiID) and (A.AiID=P.AiID)">>
+  <<&B>>  ||  Pl_<<F>>->_SPulse(bic_<<F>>,time1) 
+  <<&E>><<&E>>
+
+  <<&Create or_bic_KRS_F(type_condition)>>                 <<&B>><<
+  &Insert "select P.Name as F
+  from PFD P where (P.Name like '%F') and <<type_condition>>">>
+  <<&B>>  ||  bic_<<F>> 
+  <<&E>><<&E>>
+  
+<<&Create def_REM_NP>>                 <<&B>><<
+  &Insert "select P.Name as NP from PFD P where (P.Name like '%NP')">>
+  <<&B>> bool bic_<<NP>>; 
+  <<&E>><<&E>>
+  
+<<&Create BIC_REM_NP>>                 <<&B>><<
+  &Insert "select P.Name as NP,K.Name as REM
+  from PFD P, KL K, DI D where (P.Name like '%NP') and (K.Name like '%REM')
+  and (P.AiID = K.AiID) and (D.DiID=P.AiID)">>
+  <<&B>> bic_<<NP>> = _<<NP>>  && !_<<REM>>;
+  <<&E>><<&E>>
+
+<<&Create or_SP_bic_REM_NP>>                 <<&B>><<
+  &Insert "select P.Name as NP,K.Name as REM
+  from PFD P, KL K, DI D where (P.Name like '%NP') and (K.Name like '%REM')
+  and (P.AiID = K.AiID) and (D.DiID=P.AiID)">>
+  <<&B>>  ||  Pl_<<NP>>->_SPulse(bic_<<NP>>,time1) 
+  <<&E>><<&E>>
+
+  <<&Create or_bic_REM_NP>>                 <<&B>><<
+  &Insert "select P.Name as NP
+  from PFD P where (P.Name like '%NP')">>
+  <<&B>>  ||  bic_<<NP>> 
+  <<&E>><<&E>>
+
+  
+//Инициализация и удаление объектов
+#include "usertype.h"
+#include "pulse.h"
+#include "globals.h"
+#include "vizov.h"
+#include "cdsface.h"
+
+TBindSignal *Nal;
+TBindSignal *Gen_Err;
+TBindSignal *Gen_ErrP;
+int Nalad=0;
+int Is_Gen_Err=0;
+int Is_Gen_ErrP=0;
+short time1=10;    //  1 second
+
+<<&Insert Pulse__var('NSSH')>>
+<<&Insert Pulse__var('NES')>>
+<<&Insert Pulse__var('NBRU')>>
+<<&Insert Pulse__var('NP')>>
+<<&Insert Pulse__var('NSTH')>>
+<<&Insert Pulse__var('F')>>
+
+<<&Insert def_KRS_F>>
+<<&Insert def_REM_NP>>
+  _TSPulse1 *Pl_IS_GEN_ERR;
+
+bool IS_GEN_ERR_Pl=false;
+bool Zero=false;
+bool _NFPO_D,_NFPO_NP;
+
+void InitPulse()
+{
+<<&Insert Pulse__new('NSSH')>>
+<<&Insert Pulse__new('NES')>>
+<<&Insert Pulse__new('NBRU')>>
+<<&Insert Pulse__new('NP')>>
+<<&Insert Pulse__new('NSTH')>>
+<<&Insert Pulse__new('F')>>
+  Pl_IS_GEN_ERR = new _TSPulse1(0,false);
+}
+
+void Vizov()
+{
+////////////////// Vizov ////////////////////////////////////////////////// 
+IS_GEN_ERR_Pl=Pl_IS_GEN_ERR->_SPulse((bool)Is_Gen_ErrP,time1);
+<<&Insert BIC_REM_NP>>
+
+_NEISPR_4 = Zero
+<<&Insert OR_('NBRU')>>
+<<&Insert OR_('SA1F')>>
+<<&Insert OR_('SA2F')>>
+<<&Insert OR_('SADF')>>
+<<&Insert OR_('KNF')>>
+;
+
+_NFPO_NP = Zero
+<<&Insert OR_Pulse_('NSSH')>>
+<<&Insert OR_Pulse_('NES')>>
+<<&Insert or_SP_bic_REM_NP>>
+<<&Insert OR_Pulse_('NSTH')>>
+<<&Insert OR_Pulse_('NBRU')>>
+<<&Insert OR_Pulse_('SA1F')>>
+<<&Insert OR_Pulse_('SA2F')>>
+<<&Insert OR_Pulse_('SADF')>>
+<<&Insert OR_Pulse_('KNF')>>
+<<&Insert OR_Pulse_('A01F')>>
+<<&Insert OR_Pulse_('A02F')>>
+<<&Insert OR_Pulse_('AOF')>>
+;
+
+_NEISPR_3 = Zero
+<<&Insert OR_('NSSH')>>
+<<&Insert OR_('NES')>>
+<<&Insert or_bic_REM_NP>>
+<<&Insert OR_('NSTH')>>
+<<&Insert OR_('A01F')>>
+<<&Insert OR_('A02F')>>
+<<&Insert OR_('AOF')>>
+;
+
+<<&Insert BIC_KRS_F>>
+
+// отказ датчиков
+_NEISPR_1 = Zero
+<<&Insert or_bic_KRS_F('(NGR=0)')>>
+;
+// отказ замеров
+_NEISPR_2 = Zero
+<<&Insert or_bic_KRS_F('((NGR<>0)or(AIID=0)) ')>>
+;
+
+_NFPO_D = Zero
+<<&Insert or_SP_bic_KRS_F>>
+;
+
+_NEISPR_0 = _NEISPR_1  || _NEISPR_2  ||  _NEISPR_3 ||  _NEISPR_4;
+_NFPO     = _NFPO_D    || _NFPO_NP;
+
+////////////////// Emergency governer switching OFF ///////////////////////
+<<&Insert SHUXN('_SP')>> = Is_Gen_ErrP;
+<<&Insert SHUXN('')>>    =   Is_Gen_Err;  // 
+
+}
+
+void Naladka()
+{
+Nal -> Get_Value(Nalad);
+Gen_Err -> Get_Value(Is_Gen_Err);
+Gen_ErrP -> Get_Value(Is_Gen_ErrP);
+<<&Insert Naladka>>
+<<&Insert Tact100>>
+}

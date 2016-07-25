@@ -1,0 +1,26 @@
+<<&DB Default = ''>>
+
+<<&Create DefGlobal(Expr, Expr1)>>
+<<&B>><<
+  &Insert "SELECT ObjectName,VarValue FROM Object WHERE (TypeID=<<Expr>>) AND
+    (OWNERID IS NULL) AND (METID IS NULL) AND (ObjectName !='')">>
+    <<&B>> extern <<Expr1>> _<<ObjectName>>;
+    <<&E>>
+<<&E>>
+
+
+#ifndef globalsH
+#define globalsH
+
+#include "usertype.h"
+
+<<&Insert DefGlobal('13', 'bool')>>
+<<&Insert DefGlobal('9', 'short')>>
+<<&Insert DefGlobal('8', 'float')>>
+<<&Insert DefGlobal('10', 'int')>>
+<<&Insert DefGlobal('11', 'unsigned short')>>
+<<&Insert DefGlobal('12', 'char')>>
+
+
+
+#endif

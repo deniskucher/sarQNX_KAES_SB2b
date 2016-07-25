@@ -1,0 +1,9 @@
+<<&DB Default = ''>>
+<<&Create str>>
+                              TYPE_TABL<AIN>
+<<&B>><<&Insert  "SELECT B.AIID as ID, B.AINID as S, B.NUMBER as NN, B.NAME as N,B.CRATE as C,B.PM as P,B.NRG as R,
+        B.KANAL as K,B.USO as U,RATE as op from AIN B ORDER BY B.NUMBER">>
+<<&B>><<&Insert  "SELECT NUMBER as AINN from AI A WHERE A.AIID = <<ID>>">>
+<<&B>>ID< <<NN>> >ID_AI< <<AINN>> >IDENT< <<N>> >KR< <<C>> >PM< <<P>> >REG< <<R>> >KAN< <<K>> >USO< <<U>> >VKB< <<op>> > <<&E>><<&E>>
+<<&E>>
+<<&Insert str>>

@@ -1,0 +1,9 @@
+<<&DB Default = ''>>
+<<&Create str>>
+                      TYPE_TABL<KL>
+<<&B>>
+   <<&Insert  "SELECT KLID as ID,NAME as N,NUMBER as NN,BASEVAL as B from KL ORDER BY NUMBER">>
+<<&B>>ID< <<NN>> >IDENT< <<N>> >BASEVAL< <<B>> >
+<<&E>>
+<<&E>>
+<<&Insert str>>

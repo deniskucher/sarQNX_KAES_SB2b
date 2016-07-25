@@ -1,0 +1,13 @@
+<<&DB Default = ''>>
+<<&Create str>>
+                       
+<<&B>>
+   <<&Insert  "SELECT DSDID as ID, NAME as N,NUMBER as NN, NORMA as PR,FILTR as V from DSD ORDER BY NUMBER">>
+
+<<&B>>ID< <<NN>> >IDENT< <<N>> > NORMA< <<PR>> >TSR< <<V>> > 
+<<&E>>
+
+<<&E>>
+                      TYPE_TABL<DSD>
+
+<<&Insert str>>

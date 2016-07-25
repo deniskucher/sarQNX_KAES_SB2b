@@ -1,0 +1,83 @@
+<<&DB Default = ''>>
+<<&DB Lib = 'HwLib_KAES'>>
+<<&Create Conf_SHU>>
+<<&B>><<&Insert "SELECT Name as N from HWSchemes where SchemaID=6">>
+<<&B>><<&Insert "SELECT PropValue as P from HWDeviceProps where PropName='SHU'">>
+<<&B>>
+REGIM<NAL >NAME< <<N>> >TYPE< A >AB_VU< <<P>> >TAKT_ARM< 100 >UST_ARM< 15 >SHU_N< <<P>> >TIMEOUT_FPO< 5 >STATUS< 1 >
+<<&E>><<&E>>
+<<&E>> 
+
+<<&Create Conf_MCO(Crate,mesto,abon)>>
+<<&B>><<&Insert "Select SchemaID as SI from HWSchemes where 
+                 Name like '%<<Crate>>%'">>
+<<&B>><<&Insert "Select APADR as AKR from HWDEVICES where 
+                 Name like '%<<Crate>>%'  and SCHEMAID = 6">>
+<<&B>><<&Insert "select distinct  NAME as NN, APADR as ADR, 
+DeviceTypeID as TypeID from HWDEVICES where CATEGORY = 0 and SCHEMAID = <<SI>> and APADR =<<mesto>>
+ order by APADR">>
+ <<&B>><<&Insert Lib:"select model as M  from HWDeviceTypes
+    where DeviceTypeID = <<TypeID>> ">>
+<<&B>>KR< <<AKR>> >PM< <<adr>> >AB_ARM< <<abon>> >KOD< <<M>> >NAME< <<NN>> >PB< >PD< >
+<<&E>><<&E>><<&E>>
+<<&E>><<&E>>
+
+<<&Insert Conf_SHU>>
+<<&Insert Conf_MCO('B','1','1') >>
+<<&Insert Conf_MCO('B','2','17')>>
+<<&Insert Conf_MCO('B','3','2')>>
+<<&Insert Conf_MCO('B','4','18')>>
+<<&Insert Conf_MCO('B','5','3')>>
+<<&Insert Conf_MCO('B','6','19')>>
+<<&Insert Conf_MCO('B','7','4') >>
+<<&Insert Conf_MCO('B','8','20') >>
+<<&Insert Conf_MCO('B','9','5') >>
+<<&Insert Conf_MCO('B','10','21') >>
+<<&Insert Conf_MCO('B','11','6') >>
+<<&Insert Conf_MCO('B','12','22') >>
+<<&Insert Conf_MCO('B','13','7') >>
+<<&Insert Conf_MCO('B','14','23') >>
+<<&Insert Conf_MCO('B','15','8') >>
+<<&Insert Conf_MCO('B','16','24') >>
+<<&Insert Conf_MCO('B','17','9') >>
+<<&Insert Conf_MCO('B','18','25') >>
+<<&Insert Conf_MCO('B','19','10') >>
+<<&Insert Conf_MCO('B','30','30') >>
+
+<<&Insert Conf_MCO('D','1','1') >>
+<<&Insert Conf_MCO('D','2','17')>>
+<<&Insert Conf_MCO('D','3','2')>>
+<<&Insert Conf_MCO('D','4','18')>>
+<<&Insert Conf_MCO('D','5','3')>>
+<<&Insert Conf_MCO('D','6','19')>>
+<<&Insert Conf_MCO('D','7','4') >>
+<<&Insert Conf_MCO('D','8','20') >>
+<<&Insert Conf_MCO('D','9','5') >>
+<<&Insert Conf_MCO('D','10','21') >>
+<<&Insert Conf_MCO('D','11','6') >>
+<<&Insert Conf_MCO('D','12','22') >>
+<<&Insert Conf_MCO('D','13','7') >>
+<<&Insert Conf_MCO('D','14','23') >>
+<<&Insert Conf_MCO('D','15','8') >>
+<<&Insert Conf_MCO('D','16','24') >>
+<<&Insert Conf_MCO('D','17','9') >>
+<<&Insert Conf_MCO('D','18','25') >>
+<<&Insert Conf_MCO('D','19','10') >>
+
+<<&Insert Conf_MCO('E','1','1')>>
+<<&Insert Conf_MCO('E','2','2')>>
+<<&Insert Conf_MCO('E','3','3')>>
+<<&Insert Conf_MCO('E','4','4')>>
+<<&Insert Conf_MCO('E','5','5')>>
+<<&Insert Conf_MCO('E','6','6')>>
+<<&Insert Conf_MCO('E','7','7')>>
+<<&Insert Conf_MCO('E','8','8')>>
+<<&Insert Conf_MCO('E','9','9')>>
+<<&Insert Conf_MCO('E','10','10')>>
+<<&Insert Conf_MCO('E','11','11')>>
+<<&Insert Conf_MCO('E','12','12')>>
+
+
+
+
+

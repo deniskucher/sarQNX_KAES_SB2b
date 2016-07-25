@@ -1,0 +1,11 @@
+<<&DB Default = ''>>
+<<&Create str>>
+                           TYPE_TABL<MRI>
+<<&B>>
+   <<&Insert  "SELECT DISTINCT USO as U,PM as P from DIN">>
+<<&B>>
+   <<&Insert  "SELECT NAME as N,NUMBER as NN from MRI
+     WHERE NAME LIKE '<<U>>%' ORDER BY NUMBER">>
+<<&B>>ID< <<NN>> >IDENT< <<N>> >PM < <<P>> >REG < 1 > 
+<<&E>><<&E>><<&E>>
+<<&Insert str>>

@@ -1,0 +1,72 @@
+<<&DB Default = ''>>
+
+<<&Create Pulse_F_var>>             <<&B>><<
+  &Insert "select Name from PFD where (Name like '%F') and (AiID is not null)">>
+  <<&B>>extern _TSPulse1 *Pl_<<Name>>;
+  <<&E>><<&E>>
+
+<<&Create Pulse_NES_var>>           <<&B>><<
+  &Insert "select Name from PFD where (Name like '%NES')">>
+  <<&B>>extern _TSPulse1 *Pl_<<Name>>;
+  <<&E>><<&E>>
+
+<<&Create Pulse_NBRU_var>>          <<&B>><<
+  &Insert "select Name from PFD where (Name like '%NBRU')">>
+  <<&B>>extern _TSPulse1 *Pl_<<Name>>;
+  <<&E>><<&E>>
+
+<<&Create Pulse_NP_var>>            <<&B>><<
+  &Insert "select Name from PFD where (Name like '%NP')">>
+  <<&B>>extern _TSPulse1 *Pl_<<Name>>;
+  <<&E>><<&E>>
+
+<<&Create Pulse_NSTH_var>>           <<&B>><<
+  &Insert "select Name from PFD where (Name like '%NSTH')">>
+  <<&B>>extern _TSPulse1 *Pl_<<Name>>;
+  <<&E>><<&E>>
+  
+  <<&Create Pulse_NSSH_var>>           <<&B>><<
+  &Insert "select Name from PFD where (Name like '%NSSH')">>
+  <<&B>>extern _TSPulse1 *Pl_<<Name>>;
+  <<&E>><<&E>>
+
+<<&Create Pulse_ZS_var>>            <<&B>><<
+  &Insert "select Name from PFD where Name like '%ZS'">>
+  <<&B>>extern _TSPulse1 *Pl_<<Name>>;
+  <<&E>><<&E>>
+
+//Инициализация и удаление объектов
+#ifndef vizovH
+#define vizovH
+
+#include "usertype.h"
+#include "pulse.h"
+#include "DSD.h"
+#include "DSA.h"
+#include "Signal.h"
+
+extern TBindSignal *Nal;
+extern TBindSignal *Gen_Err;
+extern TBindSignal *Gen_ErrP;
+/////////// F ////////////////
+<<&Insert Pulse_F_var>>
+/////////// NES //////////////
+<<&Insert Pulse_NES_var>>
+/////////// NBRU /////////////
+<<&Insert Pulse_NBRU_var>>
+/////////// NP ///////////////
+<<&Insert Pulse_NP_var>>
+/////////// NSTH //////////////
+<<&Insert Pulse_NSTH_var>>
+/////////// NSSH //////////////
+<<&Insert Pulse_NSSH_var>>
+/////////// ZS ///////////////
+<<&Insert Pulse_ZS_var>>
+/////////// IS_GEN_ERR ///////
+extern _TSPulse1 *Pl_IS_GEN_ERR;
+
+extern void InitPulse();
+extern void Vizov();
+extern void Naladka();
+
+#endif

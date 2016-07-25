@@ -1,0 +1,9 @@
+<<&DB Default = ''>>
+<<&Create str>>
+                         TYPE_TABL<DO_>
+<<&B>>
+<<&Insert  "SELECT DOID as ID,NAME as N,NUMBER as NN,RATE as op from DO_ ORDER BY NUMBER">>
+<<&B>>ID< <<NN>> >IDENT< <<N>> >VKB< <<op>> >
+<<&E>>
+<<&E>>
+<<&Insert str>>

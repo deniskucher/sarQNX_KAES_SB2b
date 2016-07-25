@@ -1,0 +1,34 @@
+<<&DB Default = ''>>
+<<&Create sst0>>
+<<&B>>
+   <<&Insert  "SELECT NAME as N,NUMBER as NN,VALMIN as mn,VALMAX as mx,
+      UNITS as U,ETYPE as T,CHANLCOUNT as cout,NAG as ng,VAG as vg,LIN,
+      FORMAT as fr,POPRAV as pr,RATE as op from AI where LIN is null   order by NUMBER">>
+<<&B>>ID< <<NN>> >IDENT< <<N>> >VALMIN< <<mn>> >VALMAX< <<mx>> >UNITS< <<U>> >ETYPE< <<T>> >KANAL< <<cout>> >NAG< <<ng>> >VAG< <<vg>> >POPRAVKA< <<pr>> >FORMAT< <<fr>> >VKB< <<op>> >LIN< 0 >  
+<<&E>>
+<<&E>>
+
+<<&Create sst41>>
+<<&B>>
+   <<&Insert  "SELECT NAME as N,NUMBER as NN,VALMIN as mn,VALMAX as mx,
+      UNITS as U,ETYPE as T,CHANLCOUNT as cout,NAG as ng,VAG as vg,LIN,
+      FORMAT as fr,POPRAV as pr,RATE as op from AI where lin like 'TXA400'  order by NUMBER">>
+<<&B>>ID< <<NN>> >IDENT< <<N>> >VALMIN< <<mn>> >VALMAX< <<mx>> >UNITS< <<U>> >ETYPE< <<T>> >KANAL< <<cout>> >NAG< <<ng>> >VAG< <<vg>> >POPRAVKA< <<pr>> >FORMAT< <<fr>> >VKB< <<op>> >LIN< 41 > 
+<<&E>>
+<<&E>>
+<<&Create sst50>>
+<<&B>>
+   <<&Insert  "SELECT NAME as N,NUMBER as NN,VALMIN as mn,VALMAX as mx,
+      UNITS as U,ETYPE as T,CHANLCOUNT as cout,NAG as ng,VAG as vg,LIN,
+      FORMAT as fr,POPRAV as pr,RATE as op from AI where lin like 'TSP150'  order by NUMBER">>
+<<&B>>ID< <<NN>> >IDENT< <<N>> >VALMIN< <<mn>> >VALMAX< <<mx>> >UNITS< <<U>> >ETYPE< <<T>> >KANAL< <<cout>> >NAG< <<ng>> >VAG< <<vg>> >POPRAVKA< <<pr>> >FORMAT< <<fr>> >VKB< <<op>> >LIN< 50 > 
+<<&E>>
+<<&E>>
+
+
+
+                             TYPE_TABL<AI>
+<<&Insert sst0>>
+<<&Insert sst41>>
+<<&Insert sst50>>
+

@@ -1,0 +1,55 @@
+<<&DB Default = ''>>
+<<&Create Pack(Str)>>
+<<&Begin>>  pKO3 -> pack(<<Str>>);
+<<&End>>
+<<&Create PackClass(Expr, Name, ClassID, ProjName)>>
+<<&DB Proj = ProjName>>
+<<&Begin>><<
+  &Insert Proj: "SELECT FieldName FROM Field WHERE (TypeID <<Expr>> 13) AND (TypeID < 14) AND
+    (ClassID = <<ClassID>>)" Pack(Name+'->'+FieldName)>><<
+  &Insert Proj: "SELECT DISTINCT Project as PN FROM Property">><<&B>><<
+    &Insert Proj: "SELECT FieldName, TypeID FROM Field F WHERE (TypeID > 14) AND (ClassID = <<ClassID>>) AND
+    (ProjectID IS NULL)"
+    PackClass(Expr, Name+'->'+FieldName, TypeID, PN)>><<&E>><<
+  &Insert Proj: "SELECT FieldName, TypeID, ProjName as PN FROM Field F LEFT JOIN Project P ON F.ProjectID = P.ProjectID
+     WHERE (TypeID > 14) AND (ClassID = <<ClassID>>) AND (F.ProjectID IS NOT NULL)"
+     PackClass(Expr, Name+'->'+FieldName, TypeID, PN)>><<
+&End>>
+<<&Create PackGlobal(Expr)>>
+<<&B>><<
+  &Insert "SELECT ObjectName FROM Object WHERE (TypeID <<Expr>> 13) AND (TypeID < 14) AND
+    (OWNERID IS NULL) AND (METID IS NULL) AND (ObjectName !='')" Pack('_'+ObjectName)>><<
+  &Insert "SELECT ObjectName, TypeID, ProjName FROM Object O, Project P WHERE (TypeID > 14) AND
+    (OWNERID IS NULL) AND (METID IS NULL) AND (O.ProjectID = P.ProjectID) AND (ObjectName !='')"
+    PackClass(Expr, '_'+ObjectName, TypeID, ProjName)>><<
+  &Insert "SELECT ObjectName, TypeID FROM Object WHERE (TypeID > 14) AND
+    (OWNERID IS NULL) AND (METID IS NULL) AND (ProjectID IS NULL) AND (ObjectName !='')"
+    PackClass(Expr, '_'+ObjectName, TypeID, '')>>
+<<&E>>
+
+<<&Create SelAI>>
+<<&B>><<
+  &Insert "SELECT ObjectName FROM Object WHERE (TypeID!=13) AND (TypeID < 14) AND
+    (OWNERID IS NULL) AND (METID IS NULL) AND (ObjectName !='') 
+    AND (SignalType='AI')">>
+ <<&B>> pKO3 -> pack(_<<ObjectName>>F_1);
+ <<&E>>
+<<&E>>
+
+
+#include "ko3_FPO.h"
+#include "uobjects.h"
+#include "globals.h"
+#include "KD.h"
+
+void Pack_All()
+{
+////////// Digital ///////////////
+<<&Insert PackGlobal('=')>>
+<<&Insert SelAI>>
+  (pKO3 -> kolbyte)++;
+
+////////// Analog  ///////////////
+<<&Insert PackGlobal('!=')>> 
+}
+

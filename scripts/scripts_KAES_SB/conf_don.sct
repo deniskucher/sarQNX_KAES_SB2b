@@ -1,0 +1,10 @@
+<<&DB Default = ''>>
+<<&Create str>>
+<<&B>><<&Insert  "SELECT B.DOID as ID, B.DONID as S, B.NUMBER as NN, B.NAME as N,B.CRATE as C,B.PM as P,B.NRG as R,
+        B.KANAL as K,B.USO as U,RATE as op from DON B ORDER BY B.NUMBER">>
+<<&B>><<&Insert  "SELECT NUMBER as DONN from DO_ A WHERE A.DOID = <<ID>>">>
+<<&B>>ID< <<NN>> >ID_DO< <<DONN>> >IDENT< <<N>> >KR< <<C>> >PM< <<P>> >REG< <<R>> >KAN< <<K>> >USO< <<U>>>VKB< <<op>> >
+<<&E>><<&E>>
+<<&E>>
+                    TYPE_TABL<DON>
+<<&Insert str>>

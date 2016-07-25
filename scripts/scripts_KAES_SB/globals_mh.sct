@@ -1,0 +1,20 @@
+<<&DB Default = ''>>
+
+<<&Create VAR>>
+<<&B>><<
+  &Insert "select distinct PM as Pos from DIN
+    where (KANAL = 1) and (USO not like 'DVV%') order by PM">>
+  <<&B>> 
+         extern bool _<<Pos>>VH1;
+         extern bool _<<Pos>>VH2;
+  <<&E>>
+<<&E>>
+
+#ifndef globalsmH
+#define globalsmH
+
+<<&insert VAR>>
+
+extern void  Init_VH();
+
+#endif

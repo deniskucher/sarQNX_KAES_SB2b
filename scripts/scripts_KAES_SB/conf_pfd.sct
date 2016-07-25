@@ -1,0 +1,9 @@
+<<&DB Default = ''>>
+<<&Create str>>
+                           TYPE_TABL<PFD>
+<<&B>>
+   <<&Insert  "SELECT PFDID as ID,NAME as N,NUMBER as NN,EKV as e,RATE as OP from PFD ORDER BY NUMBER">>
+<<&B>>ID< <<NN>> >IDENT< <<N>> >OPTIONS< <<e>> >VKB< <<OP>> >
+<<&E>>
+<<&E>>
+<<&Insert str>>

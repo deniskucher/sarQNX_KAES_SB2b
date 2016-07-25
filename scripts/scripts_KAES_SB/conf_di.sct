@@ -1,0 +1,9 @@
+<<&DB Default = ''>>
+<<&Create str>>
+                              TYPE_TABL<DI>
+<<&B>>
+   <<&Insert  "SELECT DIID as ID,NAME as N,NUMBER as NN,RATE as op from DI ORDER BY NUMBER">>
+<<&B>> 
+    ID< <<NN>> >IDENT< <<N>> >VKB< <<op>> > <<&E>>
+<<&E>>
+<<&Insert str>>

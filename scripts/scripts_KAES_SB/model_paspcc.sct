@@ -1,0 +1,28 @@
+<<&DB Default = ''>>
+<<&DB Lib = 'HWLib'>>
+<<&Create ModelPasp(Crate)>>
+<<&B>><<&Insert "Select SchemaID as SI from HWSchemes where 
+                 Name like '%<<Crate>>%'">>
+<<&B>><<&Insert "select ApAdr as AA, DeviceID as DID from HWDevices
+    where (HWDevices.SchemaID = <<SI>>) and (HWDevices.Category = 0)
+    order by HWDevices.ApAdr">><<&B>><<
+  &Insert "select PropName as PN, propvalue as PV
+    from HWDeviceProps
+    where ((DeviceID=<<DID>>) and ((PropName='IM') or (PropName='UPRRHU') or (PropName='VUH1')
+    or (PropName='VUH2') or (PropName='VUH3') or (PropName='VUH4') or
+    (PropName='VH1') or (PropName='VH2')))">>
+
+  <<&B>>strcpy(TableModelPasp[<<AA>>].<<PN>>,"<<PV>>");
+  <<&E>><<&E>><<&E>>
+<<&E>>
+
+#include "model_pasp.h"
+
+TRecordPaspMRmodel TableModelPasp[19];
+
+
+void Init_modelPasp()
+{
+<<&insert ModelPasp('B')>>  
+};
+

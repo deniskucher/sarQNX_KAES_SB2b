@@ -1,0 +1,42 @@
+<<&DB Default = ''>>
+<<&DB Lib = 'HwLib_KAES'>>
+
+<<&Create PerifCr(Crate, Ind)>>
+<<&B>><<&Insert "Select SchemaID as SI from HWSchemes where 
+                 Name like '%<<Crate>>%'">>
+<<&B>><<&Insert "select ApAdr as AA, DeviceID as DID, DeviceTypeID as TypeID from HWDevices
+    where (HWDevices.SchemaID = <<SI>>) and (HWDevices.Category = 0)  
+  order by HWDevices.ApAdr">><<&B>><<
+  
+  &Insert "select PropName as PN, propvalue as PV
+    from HWDeviceProps
+    where DeviceID=<<DID>> order by PropID ">>
+  <<&B>><<&Insert Lib: "select model as M  from HWDeviceTypes
+    where DeviceTypeID = <<TypeID>> ">>
+  <<&B>> TypeMCO < <<M>> > KR < <<Ind>> > PM < <<AA>> > PROP < <<PN>> > VALUE  < <<PV>> >
+  <<&E>><<&E>><<&E>>
+<<&E>> <<&E>>
+
+<<&Create PerifPSRT(Crate, Ind)>>
+<<&B>><<&Insert "Select SchemaID as SI from HWSchemes where 
+                 Name like '%<<Crate>>%'">>
+<<&B>><<&Insert "select ApAdr as AA, DeviceID as DID, DeviceTypeID as TypeID from HWDevices
+    where (HWDevices.SchemaID = <<SI>>) and (HWDevices.Category = 0)     
+  order by HWDevices.ApAdr">><<&B>><<
+    &Insert "select PropName as PN, propvalue as PV
+    from HWDeviceProps
+    where DeviceID=<<DID>> order by PropID ">>
+  <<&B>><<&Insert Lib: "select model as M  from HWDeviceTypes
+    where DeviceTypeID = <<TypeID>> ">>
+  <<&B>>TablePasp<<M>>info[<<Ind>>,<<AA>>].<<PN>> := <<PV>>;
+  <<&E>><<&E>><<&E>>
+<<&E>> <<&E>>
+
+
+<<&Insert PerifCr('B', '1')>>
+
+<<&Insert PerifCr('D', '2')>>
+
+<<&Insert PerifCr('E', '3')>>
+
+

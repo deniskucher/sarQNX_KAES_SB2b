@@ -1,0 +1,20 @@
+<<&DB Default = ''>>
+<<&Create DefPm(Zone, Type)>>
+<<&B>><<
+  &Insert "select Name from <<Zone>> order by Number">>
+  <<&B>>extern <<Type>> *pm<<Name>>;
+  <<&E>>
+<<&E>>
+
+#ifndef SigChangeMH
+#define SigChangeMH
+
+<<&Insert DefPm('MRI', 'int')>>
+<<&Insert DefPm('MRO', 'int')>>
+<<&Insert DefPm('DI', 'char')>>
+
+extern void Read_SigM();
+extern void Write_SigM();
+extern void Init_PM();
+
+#endif

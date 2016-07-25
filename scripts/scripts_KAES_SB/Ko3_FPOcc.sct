@@ -1,0 +1,97 @@
+<<&DB Default = ''>>
+
+
+<<&Create Pack(Str)>>
+<<&Begin>>  pKO3 -> pack(<<Str>>);
+<<&End>>
+
+<<&Create PackClass(Expr, Name, ClassID, ProjName)>>
+<<&DB Proj = ProjName>>
+<<&Begin>><<
+  &Insert Proj: "SELECT FieldName FROM Field WHERE (TypeID <<Expr>> 13) AND (TypeID < 14) AND
+    (ClassID = <<ClassID>>)" Pack(Name+'->'+FieldName)>><<
+  &Insert Proj: "SELECT DISTINCT Project as PN FROM Property">><<&B>><<
+    &Insert Proj: "SELECT FieldName, TypeID FROM Field F WHERE (TypeID > 14) AND (ClassID = <<ClassID>>) AND
+    (ProjectID IS NULL)"
+    PackClass(Expr, Name+'->'+FieldName, TypeID, PN)>><<&E>><<
+  &Insert Proj: "SELECT FieldName, TypeID, ProjName as PN FROM Field F LEFT JOIN Project P ON F.ProjectID = P.ProjectID
+     WHERE (TypeID > 14) AND (ClassID = <<ClassID>>) AND (F.ProjectID IS NOT NULL)"
+     PackClass(Expr, Name+'->'+FieldName, TypeID, PN)>><<
+&End>>
+
+<<&Create FindVer(oID,Expr)>>
+<<&Begin>>
+<<&Insert "select VerMetID as vmid, objectid as oid from vertex 
+     where (VerMetID is not NULL) and (metid=<<oID>>) and (objectid is not NULL)">> 
+<<&B>>
+<<&Insert "select objectname as obn,typeid from object
+     where (objectid=<<oID>>) and (objectname !='')">> 
+<<&B>>   
+<<&Insert PackClass( Expr, '_'+ObN, TypeID, '')>>
+<<&E>>
+<<&Insert "select objectname as obn,typeid, ProjName from object O, Project P
+     where 
+    (OWNERID IS NULL) AND (METID IS NULL) AND (O.ProjectID = P.ProjectID) AND 
+(objectid=<<oID>>) and (objectname !='')">> 
+<<&B>>   
+<<&Insert PackClass( Expr, '_'+ObN, TypeID, ProjName)>>
+<<&E>>
+<<&E>>
+<<&Insert "select VerMetID as vmid from vertex 
+     where (VerMetID is not NULL) and (metid=<<oID>>) and (objectid is NULL)">> 
+<<&B>> <<&Insert FindVer(vmid, Expr)>>   <<&E>>
+<<&End>>
+
+<<&C GetSectID(Str,Expr)>>
+<<&B>>
+<<&Insert "select taskid as ti  from task where '<<Str>>' containing taskname" >> 
+<<&B>>
+<<&Insert "select typeid as tpi from sect_task where taskid=<<ti>>">> 
+<<&B>>
+<<&Insert "select metid  as mid from method where typeid=<<tpi>>">> 
+   <<&B>> <<&Insert FindVer(mid,Expr)>>   <<&E>>
+<<&E>>
+<<&E>>
+<<&E>>
+
+
+<<&Create PackGlobal(Expr)>>
+<<&B>><<
+
+
+  &Insert "SELECT ObjectName, TypeID, ProjName FROM Object O, Project P WHERE (TypeID > 14) AND
+    (OWNERID IS NULL) AND (METID IS NULL) AND (O.ProjectID = P.ProjectID) AND (ObjectName !='')"
+    PackClass(Expr, '_'+ObjectName, TypeID, ProjName)>><<
+  &Insert "SELECT ObjectName, TypeID FROM Object WHERE (TypeID > 14) AND
+    (OWNERID IS NULL) AND (METID IS NULL) AND (ProjectID is null) AND (ObjectName !='')"
+    PackClass(Expr, '_'+ObjectName, TypeID, '')>>
+<<&E>>
+
+
+<<&Create PackGlobals(Expr)>>
+<<&B>><<
+  &Insert "SELECT ObjectName FROM Object WHERE (TypeID <<Expr>> 13) AND (TypeID < 14) AND
+    (OWNERID IS NULL) AND (METID IS NULL) AND (ObjectName !='')" Pack('_'+ObjectName)>>
+<<&E>>
+
+
+
+
+#include "ko3_FPO.h"
+#include "uobjects.h"
+#include "globals.h"
+#include "KD.h"
+
+void Pack_All()
+{
+////////// Digital ///////////////
+<<&Insert PackGlobals('=')>>
+<<&Insert GetSectID('Task1','=')>>
+  (pKO3 -> kolbyte)++;
+
+////////// Analog  ///////////////
+<<&Insert PackGlobals('!=')>> 
+<<&Insert GetSectID('Task1','!=')>>
+
+}
+

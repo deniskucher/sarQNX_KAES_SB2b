@@ -1,0 +1,8 @@
+<<&DB Default = ''>>
+<<&Create DEF>>            
+<<&B>>
+<<&Insert  "select name,number from DSD order by number">>
+<<&B>>
+#define ID_<<name>>      <<number>><<&E>>
+<<&E>>
+<<&Insert DEF>>

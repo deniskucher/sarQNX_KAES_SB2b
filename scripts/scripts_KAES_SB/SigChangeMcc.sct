@@ -1,0 +1,65 @@
+<<&DB Default = ''>>
+<<&Create DefPm(Zone, Type)>>
+<<&B>><<
+  &Insert "select Name from <<Zone>> order by Number">>
+  <<&B>><<Type>> *pm<<Name>>;
+  <<&E>>
+<<&E>>
+<<&Create GetRefM(Zone, Type, Type1)>>
+<<&B>><<
+  &Insert "select Name,Number from <<Zone>> order by Number">>
+  <<&B>>GET_REF(pm<<Name>>,<<Type>>,DEF_<<Type1>>_BY_ID,<<Number>>);
+  <<&E>>
+<<&E>>
+<<&Create ReadSigM(Zone, Type)>>
+<<&B>><<
+  &Insert "select Name from <<Zone>> order by Number">>
+  <<&B>>_<<Name>>=(<<Type>>)*pm<<Name>>;
+  <<&E>>
+<<&E>>
+<<&Create WriteSigM(Zone, Type)>>
+<<&B>><<
+  &Insert "select Name from <<Zone>> order by Number">>
+  <<&B>>*pm<<Name>>=(<<Type>>)_<<Name>>;
+  <<&E>>
+<<&E>>
+#include <unistd.h>
+#include <cdsface.h>
+#include <cdshead.h>
+
+#include "globals.h"
+#include "SigChangeM.h"
+#include "typeBPO.h"
+
+<<&Insert DefPm('MRI', 'int')>>
+<<&Insert DefPm('MRO', 'int')>>
+<<&Insert DefPm('DI', 'char')>>
+
+void Init_PM()
+{
+ cds::startSession();
+<<&Insert GetRefM('MRI', 'int', 'MRI')>>
+<<&Insert GetRefM('MRO', 'int', 'MRO')>>
+<<&Insert GetRefM('DI', 'char', 'DI')>>
+ cds::stopSession(); 
+};
+
+void Read_SigM()
+{
+///////////////  MRI ////////////////
+<<&Insert ReadSigM('MRI', 'short')>>
+///////////////  MRO ////////////////
+<<&Insert ReadSigM('MRO', 'short')>>
+///////////////  DI /////////////////
+<<&Insert ReadSigM('DI', 'bool')>>
+};
+
+void Write_SigM()
+{
+///////////////  MRI ////////////////
+<<&Insert WriteSigM('MRI', 'int')>>
+///////////////  MRO ////////////////
+<<&Insert WriteSigM('MRO', 'int')>>
+///////////////  DI /////////////////
+<<&Insert WriteSigM('DI', 'char')>>
+};

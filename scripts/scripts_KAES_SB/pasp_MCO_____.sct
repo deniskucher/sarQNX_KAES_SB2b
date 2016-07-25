@@ -1,0 +1,65 @@
+<<&DB Default = ''>>
+<<&DB Lib = 'HWLib'>>
+
+<<&Create PerifCr(Crate, Ind, TT, nameMSO)>>
+<<&B>><<&Insert "Select SchemaID as SI from HWSchemes where 
+                 Name like '%<<Crate>>%'">>
+<<&B>><<&Insert "select ApAdr as AA, DeviceID as DID from HWDevices
+    where (HWDevices.SchemaID = <<SI>>) and (HWDevices.Category = 0)
+     and (HWDevices.DevicetypeID = <<nameMSO>> )
+  order by HWDevices.ApAdr">><<&B>><<
+  &Insert "select PropName as PN, propvalue as PV
+    from HWDeviceProps
+    where DeviceID=<<DID>> order by PropID ">>
+  <<&B>> TypeMCO < <<TT>> > KR < <<Ind>> > PM < <<AA>> > PROP < <<PN>> > VALUE  < <<PV>> >
+  <<&E>><<&E>><<&E>>
+<<&E>>
+
+<<&Create PerifPSRT(Crate, Ind, TT, nameMSO)>>
+<<&B>><<&Insert "Select SchemaID as SI from HWSchemes where 
+                 Name like '%<<Crate>>%'">>
+<<&B>><<&Insert "select ApAdr as AA, DeviceID as DID from HWDevices
+    where (HWDevices.SchemaID = <<SI>>) and (HWDevices.Category = 0)
+     and (HWDevices.DevicetypeID = <<nameMSO>> )
+  order by HWDevices.ApAdr">><<&B>><<
+  &Insert "select PropName as PN, propvalue as PV
+    from HWDeviceProps
+    where DeviceID=<<DID>> order by PropID ">>
+  <<&B>>TablePasp<<TT>>info[<<Ind>>,<<AA>>].<<PN>> := <<PV>>;
+  <<&E>><<&E>><<&E>>
+<<&E>>
+
+
+<<&Insert PerifCr('B', '1', 'MR', '580')>>
+<<&Insert PerifCr('B', '1', 'MR', '581')>>
+
+<<&Insert PerifCr('B', '1', 'DVV', '459')>>
+
+<<&Insert PerifCr('D', '2', 'PSRT', '466')>>
+
+<<&Insert PerifCr('B', '1', 'PAVS', '619')>>
+
+<<&Insert PerifCr('B', '1', 'PAVS', '462')>>
+
+<<&Insert PerifCr('B', '1', 'PAVS', '463')>>
+
+<<&Insert PerifCr('B', '1', 'KSK', '465')>>
+
+
+<<&Insert PerifCr('D', '2', 'MR', '580')>>
+<<&Insert PerifCr('D', '2', 'MR', '581')>>
+
+<<&Insert PerifCr('D', '2', 'DVV', '459')>>
+
+<<&Insert PerifCr('D', '2', 'PSRT', '466')>>
+
+<<&Insert PerifCr('D', '2', 'PAVS', '619')>>
+
+<<&Insert PerifCr('D', '2', 'PAVS', '462')>>
+
+<<&Insert PerifCr('D', '2', 'PAVS', '463')>>
+
+
+<<&Insert PerifCr('E', '3', 'IAT', '565')>>
+
+

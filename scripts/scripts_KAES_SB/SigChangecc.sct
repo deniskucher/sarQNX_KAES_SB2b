@@ -1,0 +1,111 @@
+<<&DB Default = ''>>
+<<&Create DefP(Zone, Type)>>
+<<&B>><<
+  &Insert "select Name from <<Zone>> order by Number">>
+  <<&B>><<Type>> *p<<Name>>;
+  <<&E>>
+<<&E>>
+<<&Create GetRef(Zone, Type, Type1)>>
+<<&B>><<
+  &Insert "select Name,Number from <<Zone>> order by Number">>
+  <<&B>>GET_REF(p<<Name>>,<<Type>>,DEF_<<Type1>>_BY_ID,<<Number>>);
+  <<&E>>
+<<&E>>
+<<&Create ReadSig(Zone, Type)>>
+<<&B>><<
+  &Insert "select Name from <<Zone>> order by Number">>
+  <<&B>>_<<Name>>=(<<Type>>)*p<<Name>>;
+  <<&E>>
+<<&E>>
+<<&Create WriteSig(Zone, Type)>>
+<<&B>><<
+  &Insert "select Name from <<Zone>> order by Number">>
+  <<&B>>*p<<Name>>=(<<Type>>)_<<Name>>;
+  <<&E>>
+<<&E>>
+#include <unistd.h>
+#include <cdsface.h>
+#include <cdshead.h>
+
+#include "globals.h"
+#include "SigChange.h"
+#include "typeBPO.h"
+
+<<&Insert DefP('AI', 'int')>>
+<<&Insert DefP('AO', 'int')>>
+<<&Insert DefP('PFA', 'int')>>
+<<&Insert DefP('KO', 'int')>>
+<<&Insert DefP('MRI', 'int')>>
+<<&Insert DefP('MRO', 'int')>>
+<<&Insert DefP('DI', 'char')>>
+<<&Insert DefP('DO_', 'char')>>
+<<&Insert DefP('PFD', 'char')>>
+<<&Insert DefP('KL', 'char')>>
+<<&Insert DefP('PIN', 'char')>>
+
+void Init_P()
+{
+<<&Insert GetRef('AI', 'int', 'AI')>>
+<<&Insert GetRef('AO', 'int', 'AO')>>
+<<&Insert GetRef('PFA', 'int', 'PFA')>>
+<<&Insert GetRef('KO', 'int', 'KO')>>
+<<&Insert GetRef('MRI', 'int', 'MRI')>>
+<<&Insert GetRef('MRO', 'int', 'MRO')>>
+<<&Insert GetRef('DI', 'char', 'DI')>>
+<<&Insert GetRef('DO_', 'char', 'DO')>>
+<<&Insert GetRef('PFD', 'char', 'PFD')>>
+<<&Insert GetRef('KL', 'char', 'KL')>>
+<<&Insert GetRef('PIN', 'char', 'PIN')>>
+};
+
+void Read_Sig()
+{
+///////////////  AI /////////////////
+<<&Insert ReadSig('AI', 'short')>>
+///////////////  AO /////////////////
+<<&Insert ReadSig('AO', 'short')>>
+///////////////  PFA ////////////////
+<<&Insert ReadSig('PFA', 'short')>>
+///////////////  KO /////////////////
+<<&Insert ReadSig('KO', 'short')>>
+///////////////  MRI ////////////////
+<<&Insert ReadSig('MRI', 'short')>>
+///////////////  MRO ////////////////
+<<&Insert ReadSig('MRO', 'short')>>
+///////////////  DI /////////////////
+<<&Insert ReadSig('DI', 'bool')>>
+///////////////  DO /////////////////
+<<&Insert ReadSig('DO_', 'bool')>>
+///////////////  PFD ////////////////
+<<&Insert ReadSig('PFD', 'bool')>>
+///////////////  KL /////////////////
+<<&Insert ReadSig('KL', 'bool')>>
+///////////////  PIN ////////////////
+<<&Insert ReadSig('PIN', 'bool')>>
+};
+
+void Write_Sig()
+{
+///////////////  AI /////////////////
+<<&Insert WriteSig('AI', 'int')>>
+///////////////  AO /////////////////
+<<&Insert WriteSig('AO', 'int')>>
+///////////////  PFA ////////////////
+<<&Insert WriteSig('PFA', 'int')>>
+///////////////  KO /////////////////
+<<&Insert WriteSig('KO', 'int')>>
+///////////////  MRI ////////////////
+<<&Insert WriteSig('MRI', 'int')>>
+///////////////  MRO ////////////////
+<<&Insert WriteSig('MRO', 'int')>>
+///////////////  DI /////////////////
+<<&Insert WriteSig('DI', 'char')>>
+///////////////  DO /////////////////
+<<&Insert WriteSig('DO_', 'char')>>
+///////////////  PFD ////////////////
+<<&Insert WriteSig('PFD', 'char')>>
+///////////////  KL /////////////////
+<<&Insert WriteSig('KL', 'char')>>
+///////////////  PIN ////////////////
+<<&Insert WriteSig('PIN', 'char')>>
+};

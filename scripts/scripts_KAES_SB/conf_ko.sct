@@ -1,0 +1,10 @@
+<<&DB Default = ''>>
+<<&Create str>>
+                     TYPE_TABL<KO>
+<<&B>>
+   <<&Insert  "SELECT KOID as ID,NAME as N,NUMBER as NN,
+      VALMIN as MN, VALMAX as MX,BASEVAL as B from KO ORDER BY NUMBER">>
+<<&B>>ID< <<NN>> >IDENT< <<N>> >VALMIN< <<MN>> >VALMAX< <<MX>> >BASEVAL< <<B>> >
+<<&E>>
+<<&E>>
+<<&Insert str>>

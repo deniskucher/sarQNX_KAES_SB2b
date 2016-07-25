@@ -1,0 +1,150 @@
+<<&DB Default = ''>>
+<<&Create varMR(Crate)>>
+<<&B>><<&Insert "Select SchemaID as SI from HWSchemes where 
+                 Name like '%<<Crate>>%'">>
+<<&B>><<&Insert "select ApAdr as AA from HWDevices
+    where (SchemaID = <<SI>>) and (Category = 0)
+    and ((DeviceTypeID = 580) or (DeviceTypeID = 581))order by ApAdr">>
+  <<&B>>  _TMR1 *_MR<<SI>><<AA>>;  
+  <<&E>><<&E>>
+<<&E>>
+<<&Create initMR(Crate)>>
+<<&B>><<&Insert "Select SchemaID as SI from HWSchemes where 
+                 Name like '%<<Crate>>%'">>
+<<&B>><<&Insert "select ApAdr as AA from HWDevices
+    where (SchemaID = <<SI>>) and (Category = 0)
+    and ((DeviceTypeID = 580) or (DeviceTypeID = 581))order by ApAdr">>
+  <<&B>>  _MR<<SI>><<AA>> = new _TMR1(<<AA>>);
+  
+  <<&E>><<&E>>
+<<&E>>
+
+<<&Create TMR51(Crate)>>
+<<&B>><<&Insert "Select SchemaID as SI from HWSchemes where 
+                 Name like '%<<Crate>>%'">>
+<<&B>><<&Insert "select ApAdr as AA,NAME as N,DeviceID as DID from HWDevices
+    where (SchemaID = <<SI>>) and (Category = 0)
+    and ((DeviceTypeID = 581)) order by ApAdr">><<&B>><<
+  &Insert "select PropName as PN,PropValue as PV from HWDeviceProps
+    where ((DeviceID=<<DID>>) and (PropName='IM') and (PropValue='ÐÊ'))">>
+	<<&B>><<
+  &Insert "select PropName as PN,PropValue as PV from HWDeviceProps
+    where ((DeviceID=<<DID>>) and (PropName='UPRRHU') and (PropValue='ÍÅÒ'))">>
+
+  <<&B>> _<<N>>MRI=_MR<<SI>><<AA>> -> _MR1(_<<N>>MRO,_<<N>>B02,_<<N>>B01,false,false,_<<N>>SA1,_<<N>>SA2,
+                                           _<<AA>>VH1,_<<AA>>VH2,false,_<<N>>SAD,_<<N>>SA3,_<<N>>SA4,_<<N>>DEBL); 
+  <<&E>><<&E>><<&E>><<&E>>
+<<&E>>
+
+<<&Create TMR51RHU(Crate)>>
+<<&B>><<&Insert "Select SchemaID as SI from HWSchemes where 
+                 Name like '%<<Crate>>%'">>
+<<&B>><<&Insert "select ApAdr as AA,NAME as N,DeviceID as DID from HWDevices
+    where (SchemaID = <<SI>>) and (Category = 0)
+    and ((DeviceTypeID = 581)) order by ApAdr">><<&B>><<
+  &Insert "select PropName as PN,PropValue as PV from HWDeviceProps
+    where ((DeviceID=<<DID>>) and (PropName='IM') and (PropValue='ÐÊ'))">>
+	<<&B>><<
+  &Insert "select PropName as PN,PropValue as PV from HWDeviceProps
+    where ((DeviceID=<<DID>>) and (PropName='UPRRHU') and (PropValue='ÄÀ'))">>
+ 
+ <<&B>> _<<N>>MRI=_MR<<SI>><<AA>> -> _MR1(_<<N>>MRO,_<<N>>B02,_<<N>>B01,false,false,_<<N>>SA1,_<<N>>SA2,
+                                           _<<AA>>VH1,_<<AA>>VH2,_<<N>>RHU,_<<N>>SAD,_<<N>>SA3,_<<N>>SA4,_<<N>>DEBL); 
+  <<&E>><<&E>><<&E>><<&E>>
+<<&E>>
+
+<<&Create TMR51RKDU(Crate)>>
+<<&B>><<&Insert "Select SchemaID as SI from HWSchemes where 
+                 Name like '%<<Crate>>%'">>
+<<&B>><<&Insert "select ApAdr as AA,NAME as N,DeviceID as DID from HWDevices
+    where (SchemaID = <<SI>>) and (Category = 0)
+    and ((DeviceTypeID = 581)) order by ApAdr">><<&B>><<
+  &Insert "select PropName as PN,PropValue as PV from HWDeviceProps
+    where ((DeviceID=<<DID>>) and (PropName='IM') and (PropValue='ÐÊÄÓ'))">>
+	
+  <<&B>> _<<N>>MRI=_MR<<SI>><<AA>> -> _MR1(_<<N>>MRO,_<<N>>B02,_<<N>>B01,false,false,_<<N>>SA1,_<<N>>SA2,
+                                           _<<AA>>VH1,_<<AA>>VH2,_<<N>>RHU,false,_<<N>>SA3,_<<N>>SA4,_<<N>>DEBL); 
+  <<&E>><<&E>><<&E>>
+<<&E>>
+
+<<&Create TMR53(Crate)>>
+<<&B>><<&Insert "Select SchemaID as SI from HWSchemes where 
+                 Name like '%<<Crate>>%'">>
+<<&B>><<&Insert "select ApAdr as AA,NAME as N from HWDevices
+    where (SchemaID = <<SI>>) and (Category = 0)
+    and ((DeviceTypeID = 580) ) order by ApAdr">>
+
+  <<&B>> _<<N>>MRI=_MR<<SI>><<AA>> -> _MR1(_<<N>>MRO,_<<N>>B02,_<<N>>B01,false,false,_<<N>>SA1,_<<N>>SA2,
+                                           _<<AA>>VH1,_<<AA>>VH2,false,false,_<<N>>SA3,_<<N>>SA4,_<<N>>DEBL);  
+  <<&E>><<&E>>
+<<&E>>
+
+<<&Create TMR53zadv(Crate)>>
+<<&B>><<&Insert "Select SchemaID as SI from HWSchemes where 
+                 Name like '%<<Crate>>%'">>
+<<&B>><<&Insert "select ApAdr as AA,NAME as N,DeviceID as DID from HWDevices
+    where (SchemaID = <<SI>>) and (Category = 0)
+    and ((DeviceTypeID = 580) ) order by ApAdr">><<&B>><<
+  &Insert "select PropName as PN,PropValue as PV from HWDeviceProps
+    where ((DeviceID=<<DID>>) and (PropName='IM') and (PropValue='ÇÄ'))">>
+	<<&B>><<
+  &Insert "select PropName as PN,PropValue as PV from HWDeviceProps
+    where ((DeviceID=<<DID>>) and (PropName='UPRRHU') and (PropValue='ÍÅÒ'))">>
+
+  <<&B>> _<<N>>MRI=_MR<<SI>><<AA>> -> _MR1(_<<N>>MRO,_<<N>>B02,_<<N>>B01,false,false,_<<N>>SA1,_<<N>>SA2,
+                                           _<<AA>>VH1,_<<AA>>VH2, false, false,_<<N>>SA3,_<<N>>SA4,_<<N>>DEBL);  
+  <<&E>><<&E>><<&E>><<&E>>
+<<&E>>
+
+<<&Create TMR53zadvRHU(Crate)>>
+<<&B>><<&Insert "Select SchemaID as SI from HWSchemes where 
+                 Name like '%<<Crate>>%'">>
+<<&B>><<&Insert "select ApAdr as AA,NAME as N,DeviceID as DID from HWDevices
+    where (SchemaID = <<SI>>) and (Category = 0)
+    and ((DeviceTypeID = 580) ) order by ApAdr">><<&B>><<
+  &Insert "select PropName as PN,PropValue as PV from HWDeviceProps
+    where ((DeviceID=<<DID>>) and (PropName='IM') and (PropValue='ÇÄ'))">>
+	<<&B>><<
+  &Insert "select PropName as PN,PropValue as PV from HWDeviceProps
+    where ((DeviceID=<<DID>>) and (PropName='UPRRHU') and (PropValue='ÄÀ'))">>
+
+  <<&B>> _<<N>>MRI=_MR<<SI>><<AA>> -> _MR1(_<<N>>MRO,_<<N>>B02,_<<N>>B01,false,false,_<<N>>SA1,_<<N>>SA2,
+                                           _<<AA>>VH1,_<<AA>>VH2,_<<N>>RHU, false,_<<N>>SA3,_<<N>>SA4,_<<N>>DEBL);  
+  <<&E>><<&E>><<&E>><<&E>>
+<<&E>>
+
+<<&Create TMR53vent(Crate)>>
+<<&B>><<&Insert "Select SchemaID as SI from HWSchemes where 
+                 Name like '%<<Crate>>%'">>
+<<&B>><<&Insert "select ApAdr as AA,NAME as N,DeviceID as DID from HWDevices
+    where (SchemaID = <<SI>>) and (Category = 0)
+    and ((DeviceTypeID = 580) ) order by ApAdr">><<&B>><<
+  &Insert "select PropName as PN,PropValue as PV from HWDeviceProps
+    where ((DeviceID=<<DID>>) and (PropName='IM') and ((PropValue='Â') or (PropValue='ÄÂ')))">>
+
+  <<&B>> _<<N>>MRI=_MR<<SI>><<AA>> -> _MR1(_<<N>>MRO,_<<N>>B02,_<<N>>B01,false,false,_<<N>>SA1,_<<N>>SA2,
+                                           _<<AA>>VH1,_<<AA>>VH2,false,_<<N>>SAD,_<<N>>SA3,_<<N>>SA4,_<<N>>DEBL);  
+  <<&E>><<&E>><<&E>>
+<<&E>>
+
+#include "globals.h"
+#include "globals_m.h"
+#include "model_classes.h"
+
+
+<<&insert  varMR('B')>>
+
+void Init_model()
+{
+  <<&insert initMR('B')>>
+};
+ 
+void model_run()
+{ 
+  <<&insert TMR51('B')>>
+  <<&insert TMR51RHU('B')>>
+  <<&insert TMR51RKDU('B')>>
+  <<&insert TMR53zadv('B')>>
+  <<&insert TMR53zadvRHU('B')>>
+  <<&insert TMR53vent('B')>>
+};

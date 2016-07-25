@@ -1,0 +1,143 @@
+<<&DB Default = ''>>
+<<&Create InitF1>>
+<<&B>><<
+  &Insert "select Name from AI">>
+  <<&B>>bool _<<Name>>F_1; // to reserve MK
+  <<&E>>
+<<&E>>
+
+<<&Create Run_AI1>>
+<<&B>><<
+  &Insert "select Name,Sbros,Chanlcount from AI where Chanlcount=2 order by Number">>
+  <<&B>>pAI1[i] -> _KD1(_<<Name>>,_<<Name>>OKD,_<<Name>>KRS,_<<Name>>K1N,_<<Name>>K2N,_<<Name>>DV,
+  _<<Name>>MN,_<<Name>>MX,_<<Name>>ZZ,_<<Sbros>>,_<<Name>>R,_<<Name>>F,_<<Name>>ZZ,_<<Name>>F_1);i++;
+  <<&E>>	
+<<&E>>
+
+<<&Create Run_AI1_1>>
+<<&B>><<
+  &Insert "select Name,Sbros,Chanlcount from AI where Chanlcount=1 order by Number">>
+  <<&B>>pAI1[i] -> _KD1(_<<Name>>,_<<Name>>OKD,_<<Name>>KRS,_<<Name>>K1N,_<<Name>>K1N,_<<Name>>DV,
+  _<<Name>>MN,_<<Name>>MX,_<<Name>>ZZ,_<<Sbros>>,_<<Name>>R,_<<Name>>F,_<<Name>>ZZ,_<<Name>>F_1);i++;
+  <<&E>>	
+<<&E>>
+
+<<&Create Run_AI2>>
+<<&B>><<
+&Insert "select distinct A.Name as AI1,B.Name as AI2,A.Sbros as Sbros,K.Name as KODEL,
+Q.Name as KOZZ,R.Name as PFAR, F.Name as PFDF,L.Name as KLKRS,M.Name as OKD   
+from AI A,AI B,KO K,KO Q,PFA R,PFD F,KL L,KL M where 
+A.LGR=2 and B.LGR=2 and A.NGR<>0 and A.NGR=B.NGR and A.Name<B.Name 
+and A.NGR=K.NGR and A.NGR=Q.NGR and K.Name<Q.Name and A.NGR=R.NGR and A.NGR=F.NGR and A.NGR=L.NGR and A.NGR=M.NGR
+and (L.name like '%KRS')and (M.name like '%OKD')">>
+<<&B>>pAI2[i] -> _KD2(_<<AI1>>R,_<<AI2>>R,_<<OKD>>,_<<KLKRS>>,_<<KODEL>>,_<<KOZZ>>,
+   _<<AI1>>F,_<<AI2>>F,_<<Sbros>>,_<<PFAR>>,_<<PFDF>>,_<<KOZZ>>);i++;
+<<&E>>
+<<&E>>
+
+<<&Create Run_AI3>>
+<<&B>><<
+&Insert "select distinct A.Name as AI1,B.Name as AI2,C.Name as AI3,A.Sbros as Sbros,K.Name as KODEL,
+Q.Name as KOZZ,R.Name as PFAR, F.Name as PFDF,L.Name as KLKRS,M.Name as OKD   
+from AI A,AI B,AI C,KO K,KO Q,PFA R,PFD F,KL L,KL M  
+where A.LGR=3 and B.LGR=3 and C.LGR=3 and A.NGR<>0 and A.NGR=B.NGR 
+and A.NGR=C.NGR and A.Name<B.Name and B.Name<C.Name and A.NGR=K.NGR and A.NGR=Q.NGR 
+and K.Name<Q.Name and A.NGR=R.NGR and A.NGR=F.NGR and A.NGR=L.NGR and A.NGR=M.NGR
+and (L.name like '%KRS')and (M.name like '%OKD')">>
+<<&B>>pAI3[i] -> _KD3(_<<AI1>>R,_<<AI2>>R,_<<AI3>>R,_<<OKD>>,_<<KLKRS>>,_<<KODEL>>,
+    _<<KOZZ>>,_<<Sbros>>,_<<AI1>>F_1,_<<AI2>>F_1,_<<AI3>>F_1,_<<PFAR>>,_<<PFDF>>,
+    _<<AI1>>F,_<<AI2>>F,_<<AI3>>F,_<<KOZZ>>,_<<AI1>>KRS,_<<AI2>>KRS,_<<AI3>>KRS); i++;
+<<&E>>
+<<&E>>
+
+<<&Create InitAIN_ADD(zone, sufix)>>
+<<&B>><<
+  &Insert "select Name as NAI from AI  order by Number">>
+  <<&B>><<&i "select Name as NKO from <<zone>> where (Name like '<<NAI>><<sufix>>')">>
+  <<&B>>
+  pAI1[i]->pMask_<<sufix>> = &_<<NKO>>;
+  <<&E>>
+  i++;
+<<&E>>	
+<<&E>>
+
+<<&Create InitAI2_ADD(zone,sufix)>>
+<<&B>><<
+&Insert "select distinct A.Name as AI1,B.Name as AI2,A.Sbros as Sbros,K.Name as KODEL,
+Q.Name as KOZZ,R.Name as PFAR, F.Name as PFDF,L.Name as KLKRS,M.Name as OKD   
+from AI A,AI B,KO K,KO Q,PFA R,PFD F,KL L,KL M where 
+A.LGR=2 and B.LGR=2 and A.NGR<>0 and A.NGR=B.NGR and A.Name<B.Name 
+and ((A.Options not like '%F%') or (A.Options is null)) and ((B.Options not like '%F%') or (B.Options is null))
+and A.NGR=K.NGR and A.NGR=Q.NGR and K.Name<Q.Name and A.NGR=R.NGR and A.NGR=F.NGR and A.NGR=L.NGR and A.NGR=M.NGR
+and (L.name like '%KRS')and (M.name like '%OKD')">>
+  <<&B>><<&i "select Name as NKO from <<zone>> where (Name like '<<PFAR+sufix>>')">>
+  <<&B>>
+  pAI2[i]->pMask_<<sufix>> = &_<<NKO>>;
+  <<&E>>
+  i++;
+<<&E>>	
+<<&E>>
+
+<<&Create InitAI3_ADD(zone, sufix)>>
+<<&B>><<
+  &Insert "select distinct A.Name as AI1,B.Name as AI2,C.Name as AI3,A.Sbros as Sbros,K.Name as KODEL,
+Q.Name as KOZZ,R.Name as PFAR, F.Name as PFDF,L.Name as KLKRS,M.Name as OKD   
+from AI A,AI B,AI C,KO K,KO Q,PFA R,PFD F,KL L,KL M  
+where A.LGR=3 and B.LGR=3 and C.LGR=3 and A.NGR<>0 and A.NGR=B.NGR 
+and ((A.Options not like '%F%') or (A.Options is null)) and ((B.Options not like '%F%') or (B.Options is null))
+and ((C.Options not like '%F%') or (C.Options is null)) 
+and A.NGR=C.NGR and A.Name<B.Name and B.Name<C.Name and A.NGR=K.NGR and A.NGR=Q.NGR 
+and K.Name<Q.Name and A.NGR=R.NGR and A.NGR=F.NGR and A.NGR=L.NGR and A.NGR=M.NGR
+and (L.name like '%KRS')and (M.name like '%OKD')">>
+  <<&B>><<&i "select Name as NKO from <<zone>> where (Name like '<<PFAR+sufix>>')">>
+  <<&B>>
+  pAI3[i]->pMask_<<sufix>> = &_<<NKO>>;
+  <<&E>>
+  i++;
+<<&E>>	
+<<&E>>
+
+#include "KD.h"
+#include "globals.h"
+
+<<&Insert InitF1>>
+
+_TKD1 *pAI1[KOL_AI1+1]; // +1 worked in case KOL_AI count = 0 
+_TKD2 *pAI2[KOL_AI2+1];
+_TKD3 *pAI3[KOL_AI3+1];
+
+void Init_KD()
+{
+ short i;
+ for (i=0;i <= KOL_AI1;i++) 
+ pAI1[i] = new _TKD1(0,0,0,0,0,0,0,0,0,0,0,0,0); 
+ for (i=0;i <= KOL_AI2;i++) 
+ pAI2[i] = new _TKD2(0); 
+ for (i=0;i <= KOL_AI3;i++) 
+ pAI3[i] = new _TKD3(0,0,0,0,0); 
+   i=0;
+<<&Insert InitAIN_ADD('PFD', 'ZMX')>>
+   i=0;
+<<&Insert InitAIN_ADD('PFD', 'ZMN')>>
+   i=0;
+<<&Insert InitAIN_ADD('PFD', 'ZDV')>>
+
+   i=0;
+<<&Insert InitAI2_ADD('PFD', 'ZRK')>>
+   i=0;
+<<&Insert InitAI3_ADD('PFD', 'ZRK')>>
+};
+
+void KD_RUN()
+{
+ short i;
+ i=0;
+ if (Delay_1m<600) Delay_1m++;
+ 
+ <<&Insert Run_AI1>>
+ <<&Insert Run_AI1_1>>
+ i=0;
+ <<&Insert Run_AI2>>
+ i=0;
+ <<&Insert Run_AI3>>
+};

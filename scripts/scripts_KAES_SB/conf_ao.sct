@@ -1,0 +1,9 @@
+<<&DB Default = ''>>
+<<&Create str>>
+                            TYPE_TABL<AO>
+<<&B>>
+   <<&Insert  "SELECT AOID as ID,NAME as N,NUMBER as NN,VALMIN as mn,VALMAX as mx,UNITS as U,ETYPE as T,CHANLCOUNT as cout,NAG as ng,VAG as vg,FORMAT as fr,RATE as op from AO ORDER BY NUMBER">>
+<<&B>>ID< <<NN>> >IDENT< <<N>> >VALMIN< <<mn>> >VALMAX< <<mx>> >UNITS< <<U>> >ETYPE< <<T>> >KANAL< <<cout>> >NAG< <<ng>> >VAG< <<vg>> >POPRAVKA<  >FORMAT< <<fr>> >VKB< <<op>> >
+<<&E>>
+<<&E>>
+<<&Insert str>>
